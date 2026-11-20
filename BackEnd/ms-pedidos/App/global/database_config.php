@@ -7,7 +7,7 @@ $capsule = new Capsule;
 $capsule->addConnection([
     'driver'    => 'mysql',
     'host'      => '127.0.0.1',
-    'database'  => 'mi_base',
+    'database'  => 'pedidos_db',
     'username'  => 'root',
     'password'  => '',
     'charset'   => 'utf8',
