@@ -1,0 +1,62 @@
+### Listar categorías
+GET http://127.0.0.1:8003/categorias
+
+### Crear categoría
+POST http://127.0.0.1:8003/categorias
+Content-Type: application/json
+
+{
+    "nombre": "Bebidas",
+    "descripcion": "Bebidas frías y calientes"
+}
+
+### Crear otra categoría
+POST http://127.0.0.1:8003/categorias
+Content-Type: application/json
+
+{
+    "nombre": "Platos fuertes",
+    "descripcion": "Comida principal"
+}
+
+### Listar productos
+GET http://127.0.0.1:8003/productos
+
+### Crear producto
+POST http://127.0.0.1:8003/productos
+Content-Type: application/json
+
+{
+    "nombre": "Coca Cola 500ml",
+    "descripcion": "Refresco de cola",
+    "precio": 2500,
+    "categoria_id": 1,
+    "disponible": true
+}
+
+### Crear otro producto
+POST http://127.0.0.1:8003/productos
+Content-Type: application/json
+
+{
+    "nombre": "Bandeja Paisa",
+    "descripcion": "Plato típico colombiano",
+    "precio": 18000,
+    "categoria_id": 2,
+    "disponible": true
+}
+
+### Editar producto (reemplaza <ID>)
+PUT http://127.0.0.1:8003/productos/<ID>
+Content-Type: application/json
+
+{
+    "precio": 22000,
+    "disponible": true
+}
+
+### Eliminar producto (reemplaza <ID>)
+DELETE http://127.0.0.1:8003/productos/<ID>
+
+### Eliminar categoría (reemplaza <ID>)
+DELETE http://127.0.0.1:8003/categorias/<ID>

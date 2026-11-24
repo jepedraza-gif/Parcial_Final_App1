@@ -1,0 +1,25 @@
+### Login admin
+POST http://127.0.0.1:8001/login
+Content-Type: application/json
+
+{
+    "usuario": "admin",
+    "contrasena": "admin123"
+}
+
+### Login usuario normal
+POST http://127.0.0.1:8001/login
+Content-Type: application/json
+
+{
+    "usuario": "carlos",
+    "contrasena": "carlos123"
+}
+
+### Validar sesión (reemplaza <TOKEN> por el token del login)
+GET http://127.0.0.1:8001/validar-sesion
+Authorization: Bearer <TOKEN>
+
+### Logout (reemplaza <TOKEN> por el token del login)
+POST http://127.0.0.1:8001/logout
+Authorization: Bearer <TOKEN>

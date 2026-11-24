@@ -1,0 +1,60 @@
+### Listar mesas
+GET http://127.0.0.1:8002/mesas
+
+### Crear mesa
+POST http://127.0.0.1:8002/mesas
+Content-Type: application/json
+
+{
+    "numero": "MESA-5",
+    "capacidad": 4,
+    "estado": "disponible"
+}
+
+### Editar mesa (reemplaza <ID>)
+PUT http://127.0.0.1:8002/mesas/<ID>
+Content-Type: application/json
+
+{
+    "capacidad": 6,
+    "estado": "ocupada"
+}
+
+### Cambiar estado de mesa (reemplaza <ID>)
+PATCH http://127.0.0.1:8002/mesas/<ID>/estado
+Content-Type: application/json
+
+{
+    "estado": "disponible"
+}
+
+### Eliminar mesa (reemplaza <ID>)
+DELETE http://127.0.0.1:8002/mesas/<ID>
+
+### Listar reservas
+GET http://127.0.0.1:8002/reservas
+
+### Crear reserva
+POST http://127.0.0.1:8002/reservas
+Content-Type: application/json
+
+{
+    "nombre_cliente": "Juan Pérez",
+    "telefono_cliente": "3001234567",
+    "cantidad_personas": 4,
+    "fecha": "2026-12-01",
+    "hora": "19:00:00",
+    "mesa_id": 1,
+    "observaciones": "Reserva de prueba"
+}
+
+### Editar reserva (reemplaza <ID>)
+PUT http://127.0.0.1:8002/reservas/<ID>
+Content-Type: application/json
+
+{
+    "estado": "confirmada"
+}
+
+### Cancelar reserva (reemplaza <ID>)
+DELETE http://127.0.0.1:8002/reservas/<ID>
