@@ -8,9 +8,9 @@ class Usuario extends Model
 {
     protected $table = 'usuarios';
     public $timestamps = false;
-    protected $hidden = ['contraseña', 'token'];
+    protected $hidden = ['contrasena', 'token'];
     protected $fillable = [
-        'nombre', 'correo', 'usuario', 'contraseña', 'rol',
+        'nombre', 'correo', 'usuario', 'contrasena', 'rol',
         'token', 'sesion_activa', 'estado'
     ];
 }

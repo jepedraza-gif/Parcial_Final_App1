@@ -1,25 +1,27 @@
-### Login admin
-POST http://127.0.0.1:8001/login
+### Listar pedidos
+GET http://127.0.0.1:8004/pedidos
+
+### Crear pedido
+POST http://127.0.0.1:8004/pedidos
 Content-Type: application/json
 
 {
-    "usuario": "admin",
-    "contrasena": "admin123"
+    "cliente_nombre": "Juan Pérez",
+    "cliente_telefono": "3001234567",
+    "total": 20500,
+    "estado": "pendiente",
+    "fecha": "2026-12-01",
+    "hora": "19:00:00",
+    "observaciones": "Pedido de prueba"
 }
 
-### Login usuario normal
-POST http://127.0.0.1:8001/login
+### Editar pedido (reemplaza <ID>)
+PUT http://127.0.0.1:8004/pedidos/<ID>
 Content-Type: application/json
 
 {
-    "usuario": "carlos",
-    "contrasena": "carlos123"
+    "estado": "confirmado"
 }
 
-### Validar sesión (reemplaza <TOKEN> por el token del login)
-GET http://127.0.0.1:8001/validar-sesion
-Authorization: Bearer <TOKEN>
-
-### Logout (reemplaza <TOKEN> por el token del login)
-POST http://127.0.0.1:8001/logout
-Authorization: Bearer <TOKEN>
+### Eliminar pedido (reemplaza <ID>)
+DELETE http://127.0.0.1:8004/pedidos/<ID>
