@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Presentation;
+namespace App\Presentation\Repositories;
 
 use App\Controllers\AuthController;
 use Exception;

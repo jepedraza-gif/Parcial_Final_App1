@@ -1,34 +1,30 @@
 <?php
 
-namespace App\Presentation;
+namespace App\Presentation\Repositories;
 
-use App\Controllers\MesasController;
+use App\Controllers\ReservasController;
+use App\Models\Reserva;
 use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-class MesaRepository
+class ReservaRepository
 {
     public function all(Request $request, Response $response): Response
     {
-        try {
-            $controller = new MesasController();
-            $mesas = $controller->all();
-            $response->getBody()->write(json_encode($mesas));
-            return $response->withHeader("Content-Type", "application/json")->withStatus(200);
-        } catch (Exception $ex) {
-            $response->getBody()->write(json_encode(['error' => $ex->getMessage()]));
-            return $response->withHeader("Content-Type", "application/json")->withStatus(500);
-        }
+        $reservas = Reserva::all();
+        $response->getBody()->write($reservas->toJson());
+        return $response->withHeader("Content-Type", "application/json");
     }
 
     public function create(Request $request, Response $response): Response
     {
         try {
-            $data = json_decode($request->getBody()->getContents(), true);
-            $controller = new MesasController();
-            $mesa = $controller->create($data);
-            $response->getBody()->write(json_encode($mesa));
+            $body = $request->getBody()->getContents();
+            $data = json_decode($body, true);
+            $controller = new ReservasController();
+            $reserva = $controller->create($data);
+            $response->getBody()->write($reserva->toJson());
             return $response->withHeader("Content-Type", "application/json")->withStatus(201);
         } catch (Exception $ex) {
             $response->getBody()->write(json_encode(['error' => $ex->getMessage()]));
@@ -39,11 +35,12 @@ class MesaRepository
     public function update(Request $request, Response $response, $args): Response
     {
         try {
-            $id = (int)$args['id'];
-            $data = json_decode($request->getBody()->getContents(), true);
-            $controller = new MesasController();
-            $mesa = $controller->update($id, $data);
-            $response->getBody()->write(json_encode($mesa));
+            $id = $args['id'];
+            $body = $request->getBody()->getContents();
+            $data = json_decode($body, true);
+            $controller = new ReservasController();
+            $reserva = $controller->update($id, $data);
+            $response->getBody()->write($reserva->toJson());
             return $response->withHeader("Content-Type", "application/json")->withStatus(200);
         } catch (Exception $ex) {
             $response->getBody()->write(json_encode(['error' => $ex->getMessage()]));
@@ -51,14 +48,13 @@ class MesaRepository
         }
     }
 
-    public function cambiarEstado(Request $request, Response $response, $args): Response
+    public function cancelar(Request $request, Response $response, $args): Response
     {
         try {
-            $id = (int)$args['id'];
-            $data = json_decode($request->getBody()->getContents(), true);
-            $controller = new MesasController();
-            $mesa = $controller->cambiarEstado($id, $data['estado']);
-            $response->getBody()->write(json_encode($mesa));
+            $id = $args['id'];
+            $controller = new ReservasController();
+            $reserva = $controller->cancelar($id);
+            $response->getBody()->write($reserva->toJson());
             return $response->withHeader("Content-Type", "application/json")->withStatus(200);
         } catch (Exception $ex) {
             $response->getBody()->write(json_encode(['error' => $ex->getMessage()]));
@@ -66,17 +62,42 @@ class MesaRepository
         }
     }
 
-    public function delete(Request $request, Response $response, $args): Response
+    public function buscarPorFecha(Request $request, Response $response, $args): Response
     {
         try {
-            $id = (int)$args['id'];
-            $controller = new MesasController();
-            $controller->delete($id);
-            $response->getBody()->write(json_encode(['mensaje' => 'Mesa eliminada']));
+            $fecha = $args['fecha'];
+            $reservas = Reserva::where('fecha', $fecha)->get();
+            $response->getBody()->write($reservas->toJson());
             return $response->withHeader("Content-Type", "application/json")->withStatus(200);
         } catch (Exception $ex) {
             $response->getBody()->write(json_encode(['error' => $ex->getMessage()]));
-            return $response->withHeader("Content-Type", "application/json")->withStatus(404);
+            return $response->withHeader("Content-Type", "application/json")->withStatus(500);
+        }
+    }
+
+    public function buscarPorCliente(Request $request, Response $response, $args): Response
+    {
+        try {
+            $cliente = $args['cliente'];
+            $reservas = Reserva::where('nombre_cliente', 'like', '%' . $cliente . '%')->get();
+            $response->getBody()->write($reservas->toJson());
+            return $response->withHeader("Content-Type", "application/json")->withStatus(200);
+        } catch (Exception $ex) {
+            $response->getBody()->write(json_encode(['error' => $ex->getMessage()]));
+            return $response->withHeader("Content-Type", "application/json")->withStatus(500);
+        }
+    }
+
+    public function buscarPorEstado(Request $request, Response $response, $args): Response
+    {
+        try {
+            $estado = $args['estado'];
+            $reservas = Reserva::where('estado', $estado)->get();
+            $response->getBody()->write($reservas->toJson());
+            return $response->withHeader("Content-Type", "application/json")->withStatus(200);
+        } catch (Exception $ex) {
+            $response->getBody()->write(json_encode(['error' => $ex->getMessage()]));
+            return $response->withHeader("Content-Type", "application/json")->withStatus(500);
         }
     }
 }

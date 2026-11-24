@@ -1,6 +1,6 @@
 <?php
 
-use App\Presentation\AuthRepository;
+use App\Presentation\Repositories\AuthRepository;
 use Slim\App;
 
 return function (App $app) {

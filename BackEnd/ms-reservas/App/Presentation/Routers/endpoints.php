@@ -1,16 +1,23 @@
 <?php
 
+use App\Presentation\Repositories\MesaRepository;
+use App\Presentation\Repositories\ReservaRepository;
 use Slim\App;
 
 return function (App $app) {
-    // ms-reservas - Gestión de mesas y reservas
-    // Rutas a implementar en el Día 5:
-    // $app->get('/mesas', [MesasController::class, 'all']);
-    // $app->post('/mesas', [MesasController::class, 'create']);
-    // $app->put('/mesas/{id}', [MesasController::class, 'update']);
-    // $app->patch('/mesas/{id}/estado', [MesasController::class, 'cambiarEstado']);
-    // $app->get('/reservas', [ReservasController::class, 'all']);
-    // $app->post('/reservas', [ReservasController::class, 'create']);
-    // $app->put('/reservas/{id}', [ReservasController::class, 'update']);
-    // $app->delete('/reservas/{id}', [ReservasController::class, 'cancelar']);
+    // Mesas
+    $app->get('/mesas', [MesaRepository::class, 'all']);
+    $app->post('/mesas', [MesaRepository::class, 'create']);
+    $app->put('/mesas/{id}', [MesaRepository::class, 'update']);
+    $app->patch('/mesas/{id}/estado', [MesaRepository::class, 'cambiarEstado']);
+    $app->delete('/mesas/{id}', [MesaRepository::class, 'delete']);
+
+    // Reservas
+    $app->get('/reservas', [ReservaRepository::class, 'all']);
+    $app->get('/reservas/fecha/{fecha}', [ReservaRepository::class, 'buscarPorFecha']);
+    $app->get('/reservas/cliente/{cliente}', [ReservaRepository::class, 'buscarPorCliente']);
+    $app->get('/reservas/estado/{estado}', [ReservaRepository::class, 'buscarPorEstado']);
+    $app->post('/reservas', [ReservaRepository::class, 'create']);
+    $app->put('/reservas/{id}', [ReservaRepository::class, 'update']);
+    $app->delete('/reservas/{id}', [ReservaRepository::class, 'cancelar']);
 };

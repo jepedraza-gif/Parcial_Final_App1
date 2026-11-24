@@ -9,7 +9,10 @@ class AuthController
 {
     public function login(array $data): array
     {
-        $usuario = Usuario::where('usuario', $data['usuario'])
+        $usuario = Usuario::where(function ($query) use ($data) {
+            $query->where('usuario', $data['usuario'])
+                ->orWhere('correo', $data['usuario']);
+        })
             ->where('contrasena', $data['contrasena'])
             ->where('estado', 'activo')
             ->first();
