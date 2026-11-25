@@ -15,6 +15,15 @@ class ProductosController
 
     public function create(array $data): Producto
     {
+        if (empty(trim($data['nombre'] ?? ''))) {
+            throw new Exception('El nombre no puede estar vacío', 1);
+        }
+
+        $existe = Producto::where('nombre', $data['nombre'])->first();
+        if ($existe) {
+            throw new Exception('Ya existe un producto con ese nombre', 1);
+        }
+
         $categoria = Categoria::find($data['categoria_id']);
         if (!$categoria) {
             throw new Exception('La categoría no existe', 1);
@@ -39,15 +48,16 @@ class ProductosController
     {
         $producto = Producto::findOrFail($id);
 
-        if (isset($data['categoria_id'])) {
-            $categoria = Categoria::find($data['categoria_id']);
-            if (!$categoria) {
-                throw new Exception('La categoría no existe', 1);
-            }
-            $producto->categoria_id = (int)$data['categoria_id'];
-        }
-
         if (isset($data['nombre'])) {
+            if (empty(trim($data['nombre']))) {
+                throw new Exception('El nombre no puede estar vacío', 1);
+            }
+            $duplicado = Producto::where('nombre', $data['nombre'])
+                ->where('id', '!=', $id)
+                ->first();
+            if ($duplicado) {
+                throw new Exception('Ya existe un producto con ese nombre', 1);
+            }
             $producto->nombre = $data['nombre'];
         }
 

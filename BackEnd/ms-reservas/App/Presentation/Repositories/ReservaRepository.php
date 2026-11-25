@@ -12,7 +12,22 @@ class ReservaRepository
 {
     public function all(Request $request, Response $response): Response
     {
-        $reservas = Reserva::all();
+        $queryParams = $request->getQueryParams();
+        $query = Reserva::with('mesa');
+
+        if (!empty($queryParams['fecha'])) {
+            $query->where('fecha', $queryParams['fecha']);
+        }
+
+        if (!empty($queryParams['cliente'])) {
+            $query->where('nombre_cliente', 'like', '%' . $queryParams['cliente'] . '%');
+        }
+
+        if (!empty($queryParams['estado'])) {
+            $query->where('estado', $queryParams['estado']);
+        }
+
+        $reservas = $query->get();
         $response->getBody()->write($reservas->toJson());
         return $response->withHeader("Content-Type", "application/json");
     }

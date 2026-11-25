@@ -113,6 +113,7 @@ class ReservasController
         if (isset($data['cantidad_personas'])) $reserva->cantidad_personas = (int)$data['cantidad_personas'];
         if (isset($data['fecha'])) $reserva->fecha = $data['fecha'];
         if (isset($data['hora'])) $reserva->hora = $data['hora'];
+        if (isset($data['estado'])) $reserva->estado = $data['estado'];
         if (isset($data['observaciones'])) $reserva->observaciones = $data['observaciones'];
         if (isset($data['mesa_id'])) $reserva->mesa_id = (int)$data['mesa_id'];
 
