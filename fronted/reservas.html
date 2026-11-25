@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas - Restaurante</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="home.html">Inicio</a>
+            <a href="mesas.html">Mesas</a>
+        </nav>
+        <h1>Gestión de Reservas</h1>
+
+        <div class="card" id="listadoReservas">
+            <h2>Listado de Reservas</h2>
+            <table id="reservasTabla">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Teléfono</th>
+                        <th>Personas</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Mesa</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="9">Cargando reservas...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card" id="buscarReservasCard">
+            <h3>Buscar Reservas</h3>
+            <form name="buscarReservaForm">
+                <div class="form-group">
+                    <label for="buscarFecha">Fecha:</label>
+                    <input type="date" name="fecha" id="buscarFecha">
+                </div>
+                <div class="form-group">
+                    <label for="buscarCliente">Cliente:</label>
+                    <input type="text" name="cliente" id="buscarCliente">
+                </div>
+                <div class="form-group">
+                    <label for="buscarEstado">Estado:</label>
+                    <select name="estado" id="buscarEstado">
+                        <option value="">Todos</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="confirmada">Confirmada</option>
+                        <option value="cancelada">Cancelada</option>
+                        <option value="finalizada">Finalizada</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Buscar</button>
+                    <button type="button" id="btnLimpiarBusqueda">Limpiar</button>
+                </div>
+            </form>
+            <div id="mensajeBuscar" class="error"></div>
+        </div>
+
+        <div class="card" id="crearReservaCard">
+            <h2>Crear Reserva</h2>
+            <form name="reservaForm">
+                <div class="form-group">
+                    <label for="nombreCliente">Nombre del cliente:</label>
+                    <input type="text" name="nombre_cliente" id="nombreCliente" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefonoCliente">Teléfono:</label>
+                    <input type="text" name="telefono_cliente" id="telefonoCliente" required>
+                </div>
+                <div class="form-group">
+                    <label for="cantidadPersonas">Cantidad de personas:</label>
+                    <input type="number" name="cantidad_personas" id="cantidadPersonas" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="fechaReserva">Fecha:</label>
+                    <input type="date" name="fecha" id="fechaReserva" required>
+                </div>
+                <div class="form-group">
+                    <label for="horaReserva">Hora:</label>
+                    <input type="time" name="hora" id="horaReserva" required>
+                </div>
+                <div class="form-group">
+                    <label for="mesaReserva">Mesa ID:</label>
+                    <input type="number" name="mesa_id" id="mesaReserva" required>
+                </div>
+                <div class="form-group">
+                    <label for="observacionesReserva">Observaciones:</label>
+                    <textarea name="observaciones" id="observacionesReserva"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Crear reserva</button>
+                </div>
+            </form>
+            <div id="mensajeCrear" class="error"></div>
+        </div>
+
+        <div class="card" id="editarReservaCard">
+            <h2>Editar Reserva</h2>
+            <form name="editarReservaForm">
+                <div class="form-group">
+                    <label for="reservaId">ID de la reserva:</label>
+                    <input type="number" name="id" id="reservaId" required>
+                </div>
+                <div class="form-group">
+                    <label for="nuevaFecha">Nueva fecha:</label>
+                    <input type="date" name="fecha" id="nuevaFecha">
+                </div>
+                <div class="form-group">
+                    <label for="nuevaHora">Nueva hora:</label>
+                    <input type="time" name="hora" id="nuevaHora">
+                </div>
+                <div class="form-group">
+                    <label for="nuevaMesa">Nueva mesa ID:</label>
+                    <input type="number" name="mesa_id" id="nuevaMesa">
+                </div>
+                <div class="form-group">
+                    <label for="nuevaCantidad">Nueva cantidad de personas:</label>
+                    <input type="number" name="cantidad_personas" id="nuevaCantidad" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="nuevoEstado">Nuevo estado:</label>
+                    <select name="estado" id="nuevoEstado">
+                        <option value="pendiente">Pendiente</option>
+                        <option value="confirmada">Confirmada</option>
+                        <option value="cancelada">Cancelada</option>
+                        <option value="finalizada">Finalizada</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="nuevasObservaciones">Nuevas observaciones:</label>
+                    <textarea name="observaciones" id="nuevasObservaciones"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Actualizar reserva</button>
+                </div>
+            </form>
+            <div id="mensajeEditar" class="error"></div>
+        </div>
+
+        <div class="card" id="cancelarReservaCard">
+            <h2>Cancelar Reserva</h2>
+            <form name="cancelarReservaForm">
+                <div class="form-group">
+                    <label for="cancelarId">ID de la reserva a cancelar:</label>
+                    <input type="number" name="id" id="cancelarId" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Cancelar reserva</button>
+                </div>
+            </form>
+            <div id="mensajeCancelar" class="error"></div>
+        </div>
+    </div>
+    <script src="js/reservas.js"></script>
+</body>
+</html>
