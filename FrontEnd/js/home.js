@@ -1,4 +1,4 @@
-const token = sessionStorage.getItem('token');
+const token = sessionStorage.getItem("token");
 const userName = document.getElementById("user-name");
 const userRol = document.getElementById("user-rol");
 const cerrarSesionBtn = document.getElementById("cerrarSesionBtn");
@@ -15,7 +15,7 @@ const validarSesion = async () => {
     const response = await fetch("http://127.0.0.1:8001/validar-sesion", {
       method: "get",
       headers: {
-        "Authorization": "Bearer " + token,
+        Authorization: "Bearer " + token,
         "Content-Type": "application/json",
       },
     });
@@ -42,7 +42,7 @@ const logout = async () => {
     await fetch("http://127.0.0.1:8001/logout", {
       method: "post",
       headers: {
-        "Authorization": "Bearer " + token,
+        Authorization: "Bearer " + token,
         "Content-Type": "application/json",
       },
     });
@@ -54,21 +54,21 @@ const logout = async () => {
   }
 };
 
-cerrarSesionBtn.addEventListener('click', logout);
+cerrarSesionBtn.addEventListener("click", logout);
 
 // Botones de navegación
-document.getElementById("btnMesas").addEventListener('click', () => {
+document.getElementById("btnMesas").addEventListener("click", () => {
   window.location.href = "mesas.html";
 });
 
-document.getElementById("btnReservas").addEventListener('click', () => {
+document.getElementById("btnReservas").addEventListener("click", () => {
   window.location.href = "reservas.html";
 });
 
-document.getElementById("btnProductos").addEventListener('click', () => {
+document.getElementById("btnProductos").addEventListener("click", () => {
   window.location.href = "productos.html";
 });
 
-document.getElementById("btnPedidos").addEventListener('click', () => {
+document.getElementById("btnPedidos").addEventListener("click", () => {
   window.location.href = "pedidos.html";
 });

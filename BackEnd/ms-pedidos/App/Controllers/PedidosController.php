@@ -33,8 +33,7 @@ class PedidosController
             }
         }
 
-        // Validación de mesa disponible: el frontend debe validar esto consultando ms-reservas
-        // antes de enviar el pedido. Si el frontend envía mesa_estado, se valida aquí.
+        
         if (isset($data['mesa_estado']) && $data['mesa_estado'] === 'disponible') {
             throw new Exception('No se puede registrar un pedido para una mesa disponible', 1);
         }
@@ -46,7 +45,6 @@ class PedidosController
         $pedido->subtotal = 0;
         $pedido->total = 0;
         $pedido->estado = $data['estado'] ?? 'pendiente';
-        $pedido->observaciones = $data['observaciones'] ?? null;
         $pedido->save();
 
         $total = 0;
@@ -72,7 +70,6 @@ class PedidosController
         $pedido->total = $total;
         $pedido->save();
 
-        // Agregar cantidad_total al objeto para la respuesta JSON
         $pedido->cantidad_total = $cantidadTotal;
 
         return $pedido;
@@ -96,10 +93,6 @@ class PedidosController
 
         if (isset($data['estado'])) {
             $pedido->estado = $data['estado'];
-        }
-
-        if (isset($data['observaciones'])) {
-            $pedido->observaciones = $data['observaciones'];
         }
 
         $pedido->save();
@@ -133,7 +126,6 @@ class PedidosController
         $detalle->subtotal = $subtotal_linea;
         $detalle->save();
 
-        // Recalcular totales del pedido
         $total = $pedido->detalles()->sum('subtotal');
         $pedido->subtotal = $total;
         $pedido->total = $total;
@@ -184,7 +176,6 @@ class PedidosController
             ->firstOrFail();
         $detalle->delete();
 
-        // Recalcular totales del pedido
         $pedido = Pedido::find($pedidoId);
         $total = $pedido->detalles()->sum('subtotal');
         $pedido->subtotal = $total;
@@ -194,3 +185,4 @@ class PedidosController
         return true;
     }
 }
+

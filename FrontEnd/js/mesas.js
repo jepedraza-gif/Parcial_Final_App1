@@ -1,4 +1,4 @@
-const token = sessionStorage.getItem('token');
+const token = sessionStorage.getItem("token");
 const mesasTbody = document.querySelector("#mesasTabla tbody");
 const crearMesaForm = document.forms["crearMesaForm"];
 const mensajeCrear = document.getElementById("mensajeCrear");
@@ -11,13 +11,12 @@ if (!token) {
   window.location.href = "index.html";
 }
 
-// Listar mesas
 const listarMesas = async () => {
   try {
     const response = await fetch("http://127.0.0.1:8002/mesas", {
       method: "get",
       headers: {
-        "Authorization": "Bearer " + token,
+        Authorization: "Bearer " + token,
         "Content-Type": "application/json",
       },
     });
@@ -26,7 +25,8 @@ const listarMesas = async () => {
       const mesas = await response.json();
       mostrarMesas(mesas);
     } else {
-      mesasTbody.innerHTML = "<tr><td colspan='5'>Error al cargar mesas</td></tr>";
+      mesasTbody.innerHTML =
+        "<tr><td colspan='5'>Error al cargar mesas</td></tr>";
     }
   } catch (error) {
     mesasTbody.innerHTML = "<tr><td colspan='5'>Error de conexión</td></tr>";
@@ -56,7 +56,6 @@ const mostrarMesas = (mesas) => {
 
     const tdAcciones = document.createElement("td");
 
-    // Botón seleccionar para editar
     const btnEditar = document.createElement("a");
     btnEditar.textContent = "Editar";
     btnEditar.href = "#editarMesaCard";
@@ -69,7 +68,6 @@ const mostrarMesas = (mesas) => {
     });
     tdAcciones.appendChild(btnEditar);
 
-    // Botón seleccionar para cambiar estado
     const btnEstado = document.createElement("a");
     btnEstado.textContent = "Cambiar estado";
     btnEstado.href = "#cambiarEstadoCard";
@@ -85,7 +83,6 @@ const mostrarMesas = (mesas) => {
   });
 };
 
-// Crear mesa
 crearMesaForm.addEventListener("submit", async (evt) => {
   evt.preventDefault();
   const data = {
@@ -98,7 +95,7 @@ crearMesaForm.addEventListener("submit", async (evt) => {
     const response = await fetch("http://127.0.0.1:8002/mesas", {
       method: "post",
       headers: {
-        "Authorization": "Bearer " + token,
+        Authorization: "Bearer " + token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
@@ -120,18 +117,18 @@ crearMesaForm.addEventListener("submit", async (evt) => {
   }
 });
 
-// Editar mesa (solo capacidad)
 editarMesaForm.addEventListener("submit", async (evt) => {
   evt.preventDefault();
   const id = editarMesaForm["id"].value;
   const data = {};
-  if (editarMesaForm["capacidad"].value) data.capacidad = editarMesaForm["capacidad"].value;
+  if (editarMesaForm["capacidad"].value)
+    data.capacidad = editarMesaForm["capacidad"].value;
 
   try {
     const response = await fetch(`http://127.0.0.1:8002/mesas/${id}`, {
       method: "put",
       headers: {
-        "Authorization": "Bearer " + token,
+        Authorization: "Bearer " + token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
@@ -153,7 +150,6 @@ editarMesaForm.addEventListener("submit", async (evt) => {
   }
 });
 
-// Cambiar estado de mesa (usa PUT como Editar Mesa)
 cambiarEstadoForm.addEventListener("submit", async (evt) => {
   evt.preventDefault();
   const id = cambiarEstadoForm["id"].value;
@@ -163,7 +159,7 @@ cambiarEstadoForm.addEventListener("submit", async (evt) => {
     const response = await fetch(`http://127.0.0.1:8002/mesas/${id}`, {
       method: "put",
       headers: {
-        "Authorization": "Bearer " + token,
+        Authorization: "Bearer " + token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ estado: estado }),

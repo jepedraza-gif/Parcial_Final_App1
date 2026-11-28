@@ -4,8 +4,8 @@ const mensaje = document.getElementById("mensaje");
 const login = async () => {
   try {
     const data = {
-      usuario: loginForm['usuario'].value,
-      contrasena: loginForm['contrasena'].value
+      usuario: loginForm["usuario"].value,
+      contrasena: loginForm["contrasena"].value,
     };
 
     const response = await fetch("http://127.0.0.1:8001/login", {
@@ -18,11 +18,11 @@ const login = async () => {
 
     if (response.status === 200) {
       const resultado = await response.json();
-      sessionStorage.setItem('token', resultado.token);
-      sessionStorage.setItem('user.name', resultado.usuario.nombre);
-      sessionStorage.setItem('user.usuario', resultado.usuario.usuario);
-      sessionStorage.setItem('user.rol', resultado.usuario.rol);
-      sessionStorage.setItem('user.id', resultado.usuario.id);
+      sessionStorage.setItem("token", resultado.token);
+      sessionStorage.setItem("user.name", resultado.usuario.nombre);
+      sessionStorage.setItem("user.usuario", resultado.usuario.usuario);
+      sessionStorage.setItem("user.rol", resultado.usuario.rol);
+      sessionStorage.setItem("user.id", resultado.usuario.id);
 
       mensaje.textContent = "";
       mensaje.className = "";
@@ -38,7 +38,7 @@ const login = async () => {
   }
 };
 
-loginForm.addEventListener('submit', (evt) => {
+loginForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
   login();
 });

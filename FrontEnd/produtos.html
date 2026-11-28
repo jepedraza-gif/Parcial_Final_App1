@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Restaurante</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="home.html">Inicio</a>
+            <a href="mesas.html">Mesas</a>
+            <a href="reservas.html">Reservas</a>
+        </nav>
+        <h1>Gestión de Productos</h1>
+
+        <div class="card" id="listadoCategorias">
+            <h2>Categorías</h2>
+            <table id="categoriasTabla">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="4">Cargando categorías...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card" id="crearCategoriaCard">
+            <h2>Crear Categoría</h2>
+            <form name="categoriaForm">
+                <div class="form-group">
+                    <label for="nombreCategoria">Nombre:</label>
+                    <input type="text" name="nombre" id="nombreCategoria" required>
+                </div>
+                <div class="form-group">
+                    <label for="descripcionCategoria">Descripción:</label>
+                    <textarea name="descripcion" id="descripcionCategoria"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Crear categoría</button>
+                </div>
+            </form>
+            <div id="mensajeCrearCategoria" class="error"></div>
+        </div>
+
+        <div class="card" id="editarCategoriaCard">
+            <h2>Editar Categoría</h2>
+            <form name="editarCategoriaForm">
+                <div class="form-group">
+                    <label for="categoriaId">ID de la categoría:</label>
+                    <input type="number" name="id" id="categoriaId" required>
+                </div>
+                <div class="form-group">
+                    <label for="nuevoNombreCategoria">Nuevo nombre:</label>
+                    <input type="text" name="nombre" id="nuevoNombreCategoria">
+                </div>
+                <div class="form-group">
+                    <label for="nuevaDescripcionCategoria">Nueva descripción:</label>
+                    <textarea name="descripcion" id="nuevaDescripcionCategoria"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Actualizar categoría</button>
+                </div>
+            </form>
+            <div id="mensajeEditarCategoria" class="error"></div>
+        </div>
+
+        <div class="card" id="eliminarCategoriaCard">
+            <h2>Eliminar Categoría</h2>
+            <form name="eliminarCategoriaForm">
+                <div class="form-group">
+                    <label for="eliminarCategoriaId">ID de la categoría a eliminar:</label>
+                    <input type="number" name="id" id="eliminarCategoriaId" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Eliminar categoría</button>
+                </div>
+            </form>
+            <div id="mensajeEliminarCategoria" class="error"></div>
+        </div>
+
+        <div class="card" id="listadoProductos">
+            <h2>Productos</h2>
+            <table id="productosTabla">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Disponible</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="6">Cargando productos...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card" id="crearProductoCard">
+            <h2>Crear Producto</h2>
+            <form name="productoForm">
+                <div class="form-group">
+                    <label for="nombreProducto">Nombre:</label>
+                    <input type="text" name="nombre" id="nombreProducto" required>
+                </div>
+                <div class="form-group">
+                    <label for="descripcionProducto">Descripción:</label>
+                    <textarea name="descripcion" id="descripcionProducto"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="precioProducto">Precio:</label>
+                    <input type="number" name="precio" id="precioProducto" min="0.01" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="categoriaProducto">Categoría ID:</label>
+                    <input type="number" name="categoria_id" id="categoriaProducto" required>
+                </div>
+                <div class="form-group">
+                    <label for="disponibleProducto">Disponible:</label>
+                    <select name="disponible" id="disponibleProducto">
+                        <option value="true">Sí</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Crear producto</button>
+                </div>
+            </form>
+            <div id="mensajeCrearProducto" class="error"></div>
+        </div>
+
+        <div class="card" id="editarProductoCard">
+            <h2>Editar Producto</h2>
+            <form name="editarProductoForm">
+                <div class="form-group">
+                    <label for="productoId">ID del producto:</label>
+                    <input type="number" name="id" id="productoId" required>
+                </div>
+                <div class="form-group">
+                    <label for="nuevoNombreProducto">Nuevo nombre:</label>
+                    <input type="text" name="nombre" id="nuevoNombreProducto">
+                </div>
+                <div class="form-group">
+                    <label for="nuevaDescripcionProducto">Nueva descripción:</label>
+                    <textarea name="descripcion" id="nuevaDescripcionProducto"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="nuevoPrecioProducto">Nuevo precio:</label>
+                    <input type="number" name="precio" id="nuevoPrecioProducto" min="0.01" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="nuevaCategoriaProducto">Nueva categoría ID:</label>
+                    <input type="number" name="categoria_id" id="nuevaCategoriaProducto">
+                </div>
+                <div class="form-group">
+                    <label for="nuevoDisponibleProducto">Disponible:</label>
+                    <select name="disponible" id="nuevoDisponibleProducto">
+                        <option value="true">Sí</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Actualizar producto</button>
+                </div>
+            </form>
+            <div id="mensajeEditarProducto" class="error"></div>
+        </div>
+
+        <div class="card" id="eliminarProductoCard">
+            <h2>Eliminar Producto</h2>
+            <form name="eliminarProductoForm">
+                <div class="form-group">
+                    <label for="eliminarProductoId">ID del producto a eliminar:</label>
+                    <input type="number" name="id" id="eliminarProductoId" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Eliminar producto</button>
+                </div>
+            </form>
+            <div id="mensajeEliminarProducto" class="error"></div>
+        </div>
+
+        <div class="card" id="buscarProductosCard">
+            <h3>Buscar Productos</h3>
+            <form name="buscarProductoForm">
+                <div class="form-group">
+                    <label for="buscarCategoriaId">Categoría ID:</label>
+                    <input type="number" name="categoria_id" id="buscarCategoriaId">
+                </div>
+                <div class="form-group">
+                    <label for="buscarDisponible">Disponible:</label>
+                    <select name="disponible" id="buscarDisponible">
+                        <option value="">Todos</option>
+                        <option value="true">Sí</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Buscar</button>
+                    <button type="button" id="btnLimpiarBusquedaProducto">Limpiar</button>
+                </div>
+            </form>
+            <div id="mensajeBuscarProducto" class="error"></div>
+        </div>
+    </div>
+    <script src="js/productos.js"></script>
+</body>
+</html>
